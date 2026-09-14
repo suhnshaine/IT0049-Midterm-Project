@@ -1,69 +1,245 @@
-# CodeIgniter 4 Application Starter
+# Complete Point-of-Sale System (CodeIgniter)
 
-## What is CodeIgniter?
+# Project Description
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+This project is a Point-of-Sale (POS) System developed using CodeIgniter 4 and MySQL. The system follows the Model-View-Controller (MVC) architecture and demonstrates the topics covered in class, including database configuration, routes, controllers, views, models, query builder, and displaying database records.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+The application uses a MySQL database consisting of four main tables:
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+- Products
+- Customers
+- Users
+- Sales
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+The database schema follows the requirements specified in the project instructions.
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+# Features Implemented
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Database
 
-## Setup
+- Database schema created
+- Products table
+- Customers table
+- Users table
+- Sales table
+- Primary keys
+- Foreign key relationships
+- Database export included
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## CodeIgniter Components
 
-## Important Change with index.php
+- Routes
+- Controllers
+- Models
+- Views
+- Database connection configuration
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## Data Display
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+- Product list page
+- Customer list page
+- User list page
+- Database records displayed using MVC architecture
 
-**Please** read the user guide for a better explanation of how CI4 works!
+---
 
-## Repository Management
+# Technologies Used
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- PHP
+- CodeIgniter 4
+- MySQL
+- HTML
+- CSS
+- Composer
+- XAMPP
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+---
 
-## Server Requirements
+# Installation Guide
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+## 1. Clone the Repository
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+```bash
+git clone https://github.com/suhnshaine/IT0049-Midterm-Project.git
+```
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+## 2. Open the Project Folder
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```bash
+cd IT0049-Midterm-Project
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 3. Install Dependencies
+
+```bash
+composer install
+```
+
+## 4. Create Database
+
+Open phpMyAdmin and create a new database:
+
+```sql
+CREATE DATABASE midterm_pos_db;
+```
+
+## 5. Import the Database
+
+The exported database file is located in:
+
+```text
+database/midterm_pos_db.sql
+```
+
+Steps:
+
+1. Open phpMyAdmin
+2. Select the `midterm_pos_db` database
+3. Click **Import**
+4. Choose:
+
+```text
+database/midterm_pos_db.sql
+```
+
+5. Click **Go**
+
+The tables and sample data will be imported automatically.
+
+## 6. Configure Database Settings
+
+Rename:
+
+```text
+env
+```
+
+to:
+
+```text
+.env
+```
+
+Then update the database settings:
+
+```env
+database.default.hostname = localhost
+database.default.database = midterm_pos_db
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+```
+
+## 7. Start the Development Server
+
+```bash
+php spark serve
+```
+
+## 8. Open the Application
+
+```text
+http://localhost:8080
+```
+
+---
+
+# Available Routes
+
+```text
+/products
+/customers
+/users
+```
+
+---
+
+# MVC Workflow
+
+```text
+User Request
+     ↓
+Route
+     ↓
+Controller
+     ↓
+Model
+     ↓
+Database
+     ↓
+View
+     ↓
+Browser Output
+```
+
+---
+
+# Project Structure
+
+```text
+project-root
+│
+├── app
+│   ├── Controllers
+│   │   ├── ProductController.php
+│   │   ├── CustomerController.php
+│   │   └── UserController.php
+│   │
+│   ├── Models
+│   │   ├── ProductModel.php
+│   │   ├── CustomerModel.php
+│   │   └── UserModel.php
+│   │
+│   └── Views
+│       ├── products
+│       │   └── index.php
+│       ├── customers
+│       │   └── index.php
+│       └── users
+│           └── index.php
+│
+├── database
+│   └── midterm_pos_db.sql
+│
+├── public
+│
+└── README.md
+```
+
+---
+
+# Current Progress
+
+### Completed
+
+- [x] CodeIgniter Setup
+- [x] Database Configuration
+- [x] MySQL Connection
+- [x] Database Schema Creation
+- [x] Products Table
+- [x] Customers Table
+- [x] Users Table
+- [x] Sales Table
+- [x] Foreign Key Relationships
+- [x] Models Creation
+- [x] Routes Configuration
+- [x] Controllers Creation
+- [x] Views Creation
+- [x] Retrieving Records from Database
+- [x] Displaying Database Records
+- [x] MVC Architecture Implementation
+
+### To Be Implemented
+
+- [ ] Product CRUD Operations
+- [ ] Customer CRUD Operations
+- [ ] User CRUD Operations
+- [ ] Authentication System
+- [ ] Image Upload
+- [ ] Avatar Upload
+- [ ] Record Sale Module
+- [ ] Stock Management
+- [ ] Sales History
+- [ ] Deployment
