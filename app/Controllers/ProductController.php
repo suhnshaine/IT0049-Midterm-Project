@@ -20,6 +20,7 @@ class ProductController extends BaseController
 
     public function createForm()
     {
+        helper('form');
         return view('products/form', [
             'title' => 'Add Product',
             'product' => null
@@ -61,6 +62,7 @@ class ProductController extends BaseController
 
     public function edit(int $id)
     {
+        helper('form');
         $product = (new ProductModel())->find($id);
 
         if (! $product) {

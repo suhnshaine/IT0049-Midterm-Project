@@ -20,6 +20,7 @@ class UserController extends BaseController
 
     public function createForm()
     {
+        helper('form');
         return view('users/form', [
             'title' => 'Add Staff User',
             'user' => null
@@ -64,6 +65,7 @@ class UserController extends BaseController
 
     public function edit(int $id)
     {
+        helper('form');
         $user = (new UserModel())->find($id);
 
         if (! $user) {

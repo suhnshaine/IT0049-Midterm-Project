@@ -13,7 +13,8 @@ class CustomerModel extends Model
         'full_name',
         'email',
         'phone',
-        'address'
+        'address',
+        'created_at'
     ];
 
     protected $returnType = 'array';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2026 at 11:50 AM
+-- Generation Time: Oct 05, 2026 at 09:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,9 +63,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `stock_quantity`, `image`, `created_at`) VALUES
-(1, 'Laptop', 35000.00, 10, NULL, '2026-09-14 17:23:03'),
+(1, 'Laptop', 35000.00, 10, '1791223836_cefe8f0db15dc998fe57.jpg', '2026-09-14 17:23:03'),
 (2, 'Mouse', 500.00, 50, NULL, '2026-09-14 17:23:03'),
-(3, 'Keyboard', 1200.00, 20, NULL, '2026-09-14 17:23:03');
+(3, 'Keyboard', 1200.00, 17, NULL, '2026-09-14 17:23:03');
 
 -- --------------------------------------------------------
 
@@ -82,6 +82,14 @@ CREATE TABLE `sales` (
   `total_price` decimal(10,2) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `product_id`, `customer_id`, `sold_by`, `quantity`, `total_price`, `created_at`) VALUES
+(1, 3, 2, 1, 1, 1200.00, '0000-00-00 00:00:00'),
+(2, 3, NULL, 1, 2, 2400.00, '2026-10-05 18:58:24');
 
 -- --------------------------------------------------------
 
@@ -103,7 +111,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `full_name`, `password`, `avatar`, `created_at`) VALUES
-(1, 'admin', 'Administrator', 'admin123', NULL, '2026-09-14 17:23:04');
+(1, 'admin', 'Administrator', '$2y$10$TAFilS8FMj2KfpQTTx6wPut1FKvv5SxDRtn82WoRSHe2mrNs8IKvy', '1791223715_871c7783d6fd2efacfbd.png', '2026-09-14 17:23:04'),
+(3, 'prof', 'Professor', '$2y$10$sHraRIJufbsN02gxthVOueI6BKXTO3z5YS8DjTeMftALpLViknK/m', NULL, '2026-10-05 19:06:20');
 
 --
 -- Indexes for dumped tables
@@ -151,19 +160,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

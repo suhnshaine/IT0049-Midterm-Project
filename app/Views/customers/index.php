@@ -14,11 +14,11 @@
     </div>
 <?php endif; ?>
 
-<p>
-    <a href="<?= site_url('customers/new') ?>" class="btn btn-success">
-        Add Customer
-    </a>
-</p>
+<a href="<?= site_url('customers/new') ?>" class="btn btn-success">
+    Add Customer
+</a>
+
+<br><br>
 
 <?php if (! empty($customers)): ?>
     <table>
@@ -45,17 +45,18 @@
                     <td class="actions">
                         <a
                             href="<?= site_url('customers/' . $customer['id'] . '/edit') ?>"
-                            class="btn btn-primary"
-                        >
+                            class="btn btn-primary">
                             Edit
                         </a>
 
                         <form
                             method="post"
                             action="<?= site_url('customers/' . $customer['id'] . '/delete') ?>"
-                        >
+                            onsubmit="return confirm('Are you sure you want to delete this customer?');">
                             <?= csrf_field() ?>
-                            <button type="submit" class="btn btn-danger">
+                            <button
+                                type="submit"
+                                class="btn btn-danger">
                                 Delete
                             </button>
                         </form>

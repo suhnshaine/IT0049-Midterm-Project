@@ -3,55 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= esc(base_url('public/assets/css/style.css'), 'attr') ?>">
     <title>Login</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 <body>
-
 <div class="login-page">
     <div class="login-card">
         <h1>Staff Login</h1>
 
         <?php if (session()->getFlashdata('message')): ?>
             <div class="success-message">
-                <?= esc(session()->getFlashdata('message')) ?>
+                <?= session()->getFlashdata('message') ?>
             </div>
         <?php endif; ?>
 
         <?php if (session()->getFlashdata('error')): ?>
             <div class="error-message">
-                <?= esc(session()->getFlashdata('error')) ?>
+                <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <form method="post">
+        <form action="<?= site_url('login') ?>" method="post">
             <?= csrf_field() ?>
 
             <div class="form-group">
                 <label for="username">Username</label>
                 <input
-                    id="username"
                     type="text"
+                    id="username"
                     name="username"
-                    value="<?= esc(old('username')) ?>"
+                    value="<?= old('username') ?>"
+                    required
                 >
-                <span class="text-danger">
-                    <?= validation_show_error('username') ?>
-                </span>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password">
-                <span class="text-danger">
-                    <?= validation_show_error('password') ?>
-                </span>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                >
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" class="btn btn-primary">
+                Login
+            </button>
         </form>
     </div>
 </div>
-
 </body>
 </html>

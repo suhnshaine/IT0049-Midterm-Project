@@ -14,7 +14,8 @@ class SaleModel extends Model
         'customer_id',
         'sold_by',
         'quantity',
-        'total_price'
+        'total_price',
+        'created_at'
     ];
 
     protected $returnType = 'array';

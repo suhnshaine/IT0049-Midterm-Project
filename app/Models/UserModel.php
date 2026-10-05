@@ -14,7 +14,7 @@ class UserModel extends Model
         'full_name',
         'password',
         'avatar',
-        'role'
+        'created_at'
     ];
 
     protected $returnType = 'array';

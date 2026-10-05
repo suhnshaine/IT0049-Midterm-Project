@@ -8,6 +8,8 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        helper('form');
+        
         if (session()->get('isLoggedIn')) {
             return redirect()->to('/products');
         }

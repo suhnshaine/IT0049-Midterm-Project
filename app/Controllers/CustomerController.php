@@ -20,6 +20,7 @@ class CustomerController extends BaseController
 
     public function createForm()
     {
+        helper('form');
         return view('customers/form', [
             'title' => 'Add Customer',
             'customer' => null
@@ -54,6 +55,7 @@ class CustomerController extends BaseController
 
     public function edit(int $id)
     {
+        helper('form');
         $customer = (new CustomerModel())->find($id);
 
         if (! $customer) {

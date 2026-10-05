@@ -1,8 +1,8 @@
-</main>
+</div>
 
 <footer class="footer">
     <p>
-        &copy; <?= date('Y') ?> Sales Management System
+        &copy; <?= date('Y') ?> POS System
     </p>
 </footer>
 

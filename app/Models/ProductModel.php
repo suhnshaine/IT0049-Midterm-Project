@@ -14,7 +14,8 @@ class ProductModel extends Model
         'description',
         'price',
         'stock_quantity',
-        'image'
+        'image',
+        'created_at'
     ];
 
     protected $returnType = 'array';

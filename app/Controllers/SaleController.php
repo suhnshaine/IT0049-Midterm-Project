@@ -19,6 +19,7 @@ class SaleController extends BaseController
 
     public function createForm()
     {
+        helper('form');
         $productModel = new ProductModel();
         $customerModel = new CustomerModel();
 
