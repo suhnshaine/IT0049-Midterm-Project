@@ -4,7 +4,7 @@
 $isEdit = ! empty($product);
 
 $action = $isEdit
-    ? site_url('products/' . $product['id'] . '/edit')
+    ? site_url('products/' . $product['id'])
     : site_url('products');
 ?>
 
