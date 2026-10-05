@@ -4,7 +4,7 @@
 $isEdit = ! empty($user);
 
 $action = $isEdit
-    ? site_url('users/' . $user['id'] . '/edit')
+    ? site_url('users/' . $user['id'])
     : site_url('users');
 ?>
 
