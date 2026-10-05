@@ -1,82 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales History</title>
-</head>
+<?= view('partials/header', ['title' => 'Sales History']) ?>
 
-<body>
+<h1>Sales History</h1>
 
-    <h1>Sales History</h1>
+<a hrefass="btn btn-success">
+    Record Sale
+</a>
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <p><?= esc(session()->getFlashdata('message')) ?></p>
-    <?php endif; ?>
+<br><br>
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <p><?= esc(session()->getFlashdata('error')) ?></p>
-    <?php endif; ?>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Customer</th>
+            <th>Cashier</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Date</th>
+        </tr>
+    </thead>
 
-    <p>
-        <a href="<?= site_url('sales/new') ?>">Record New Sale</a>
-    </p>
+    <tbody>
 
-    <?php if (! empty($sales)): ?>
+    <?php foreach($sales as $sale): ?>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product</th>
-                    <th>Customer</th>
-                    <th>Cashier</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
+        <tr>
+            <td><?= esc($sale['id']) ?></td>
+            <td><?= esc($sale['product_name']) ?></td>
+            <td><?= esc($sale['customer_name'] ?: 'Walk-in Customer') ?></td>
+            <td><?= esc($sale['cashier_name']) ?></td>
+            <td><?= esc($sale['quantity']) ?></td>
+            <td><?= number_format($sale['total_price'],2) ?></td>
+            <td><?= esc($sale['created_at']) ?></td>
+        </tr>
 
-            <tbody>
-                <?php foreach ($sales as $sale): ?>
-                    <tr>
-                        <td><?= esc($sale['id']) ?></td>
+    <?php endforeach; ?>
 
-                        <td>
-                            <?= esc($sale['product_name']) ?>
-                        </td>
+    </tbody>
+</table>
 
-                        <td>
-                            <?= ! empty($sale['customer_name'])
-                                ? esc($sale['customer_name'])
-                                : 'Walk-in Customer' ?>
-                        </td>
-
-                        <td>
-                            <?= esc($sale['cashier_name']) ?>
-                        </td>
-
-                        <td>
-                            <?= esc($sale['quantity']) ?>
-                        </td>
-
-                        <td>
-                            <?= number_format((float) $sale['total_price'], 2) ?>
-                        </td>
-
-                        <td>
-                            <?= esc($sale['created_at']) ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-    <?php else: ?>
-
-        <p>No sales found.</p>
-
-    <?php endif; ?>
-
-</body>
-</html>
+<?= view('partials/footer') ?>
