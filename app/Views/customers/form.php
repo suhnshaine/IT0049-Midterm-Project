@@ -4,7 +4,7 @@
 $isEdit = ! empty($customer);
 
 $action = $isEdit
-    ? site_url('customers/' . $customer['id'] . '/edit')
+    ? site_url('customers/' . $customer['id'])
     : site_url('customers');
 ?>
 
