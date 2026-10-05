@@ -2,7 +2,7 @@
 
 <h1>User List</h1>
 
- ?>" class="btn btn-success">
+<a href="<?= site_url('users/new') ?>" class="btn btn-success">
     Add Staff User
 </a>
 
@@ -21,39 +21,35 @@
     </thead>
 
     <tbody>
+        <?php foreach ($users as $user): ?>
+            <tr>
+                <td><?= esc($user['id']) ?></td>
+                <td><?= esc($user['username']) ?></td>
+                <td><?= esc($user['full_name']) ?></td>
+                <td><?= esc($user['avatar'] ?: 'No Avatar') ?></td>
+                <td><?= esc($user['created_at']) ?></td>
 
-    <?php foreach ($users as $user): ?>
+                <td class="actions">
+                    <a
+                        href="<?= site_url('users/' . $user['id'] . '/edit') ?>"
+                        class="btn btn-warning"
+                    >
+                        Edit
+                    </a>
 
-    <tr>
+                    <form
+                        method="post"
+                        action="<?= site_url('users/' . $user['id'] . '/delete') ?>"
+                    >
+                        <?= csrf_field() ?>
 
-        <td><?= esc($user['id']) ?></td>
-        <td><?= esc($user['username']) ?></td>
-        <td><?= esc($user['full_name']) ?></td>
-        <td><?= esc($user['avatar'] ?: 'No Avatar') ?></td>
-        <td><?= esc($user['created_at']) ?></td>
-
-        <td class="actions">
-
-             ?>"
-                class="btn btn-warning">
-                Edit
-            </a>
-
-            <form
-                method="posteld() ?>
-
-                <button type="submit" class="btn btn-danger">
-                    Delete
-                </button>
-
-            </form>
-
-        </td>
-
-    </tr>
-
-    <?php endforeach; ?>
-
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
 
