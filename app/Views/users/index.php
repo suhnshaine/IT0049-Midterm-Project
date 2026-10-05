@@ -1,89 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?= view('partials/header', ['title' => 'User List']) ?>
 
-    <title>User List</title>
-</head>
+<h1>User List</h1>
 
-<body>
+ ?>" class="btn btn-success">
+    Add Staff User
+</a>
 
-    <h1>User List</h1>
+<br><br>
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <p><?= esc(session()->getFlashdata('message')) ?></p>
-    <?php endif; ?>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Avatar</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <p><?= esc(session()->getFlashdata('error')) ?></p>
-    <?php endif; ?>
+    <tbody>
 
-    <p>
-        <a href="<?= site_url('users/new') ?>">Add Staff User</a>
-    </p>
+    <?php foreach ($users as $user): ?>
 
-    <?php if (! empty($users)): ?>
+    <tr>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Full Name</th>
-                    <th>Avatar Filename</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+        <td><?= esc($user['id']) ?></td>
+        <td><?= esc($user['username']) ?></td>
+        <td><?= esc($user['full_name']) ?></td>
+        <td><?= esc($user['avatar'] ?: 'No Avatar') ?></td>
+        <td><?= esc($user['created_at']) ?></td>
 
-            <tbody>
+        <td class="actions">
 
-                <?php foreach ($users as $user): ?>
+             ?>"
+                class="btn btn-warning">
+                Edit
+            </a>
 
-                    <tr>
-                        <td><?= esc($user['id']) ?></td>
+            <form
+                method="posteld() ?>
 
-                        <td><?= esc($user['username']) ?></td>
+                <button type="submit" class="btn btn-danger">
+                    Delete
+                </button>
 
-                        <td><?= esc($user['full_name']) ?></td>
+            </form>
 
-                        <td>
-                            <?= ! empty($user['avatar'])
-                                ? esc($user['avatar'])
-                                : 'No avatar' ?>
-                        </td>
+        </td>
 
-                        <td><?= esc($user['created_at']) ?></td>
+    </tr>
 
-                        <td>
-                            <a href="<?= site_url('users/' . $user['id'] . '/edit') ?>">
-                                Edit
-                            </a>
+    <?php endforeach; ?>
 
-                            <form
-                                method="post"
-                                action="<?= site_url('users/' . $user['id'] . '/delete') ?>"
-                            >
-                                <?= csrf_field() ?>
+    </tbody>
+</table>
 
-                                <button type="submit">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
-
-    <?php else: ?>
-
-        <p>No users found.</p>
-
-    <?php endif; ?>
-
-</body>
-</html>
+<?= view('partials/footer') ?>
