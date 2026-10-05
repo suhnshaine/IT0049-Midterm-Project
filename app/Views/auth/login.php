@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= esc(base_url('css/style.css'), 'attr') ?>">
+    <link rel="stylesheet" href="<?= esc(base_url('public/assets/css/style.css'), 'attr') ?>">
     <title>Login</title>
 </head>
 <body>
