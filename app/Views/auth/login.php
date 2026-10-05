@@ -8,52 +8,57 @@
 
 <body>
 
-    <h1>Staff Login</h1>
+<div class="login-page">
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <p><?= esc(session()->getFlashdata('message')) ?></p>
-    <?php endif; ?>
+    <div class="login-card">
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <p><?= esc(session()->getFlashdata('error')) ?></p>
-    <?php endif; ?>
+        <h1>Staff Login</h1>
 
-    <form method="post" action="<?= site_url('login') ?>">
+        <?php if (session()->getFlashdata('message')): ?>
+            <div class="success-message">
+                <?= esc(session()->getFlashdata('message')) ?>
+            </div>
+        <?php endif; ?>
 
-        <?= csrf_field() ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="error-message">
+                <?= esc(session()->getFlashdata('error')) ?>
+            </div>
+        <?php endif; ?>
 
-        <div>
-            <label for="username">Username</label><br>
+         ?>">
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value="<?= esc(old('username'), 'attr') ?>"
-            >
+            <?= csrf_field() ?>
 
-            <?= validation_show_error('username') ?>
-        </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text"
+                       name="username"
+                       value="<?= old('username') ?>">
 
-        <br>
+                <span class="text-danger">
+                    <?= validation_show_error('username') ?>
+                </span>
+            </div>
 
-        <div>
-            <label for="password">Password</label><br>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password">
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-            >
+                <span class="text-danger">
+                    <?= validation_show_error('password') ?>
+                </span>
+            </div>
 
-            <?= validation_show_error('password') ?>
-        </div>
+            <button type="submit">
+                Login
+            </button>
 
-        <br>
+        </form>
 
-        <button type="submit">Log In</button>
+    </div>
 
-    </form>
+</div>
 
 </body>
 </html>
