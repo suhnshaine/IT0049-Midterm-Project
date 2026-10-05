@@ -1,79 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title) ?></title>
-</head>
+<?= view('partials/header', ['title' => 'Customer List']) ?>
 
-<body>
+<h1>Customer List</h1>
 
-    <h1><?= esc($title) ?></h1>
+<?php if (session()->getFlashdata('message')): ?>
+    <div class="success-message">
+        <?= esc(session()->getFlashdata('message')) ?>
+    </div>
+<?php endif; ?>
 
-    <?php
-        $isEdit = ! empty($customer);
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="error-message">
+        <?= esc(session()->getFlashdata('error')) ?>
+    </div>
+<?php endif; ?>
 
-        $action = $isEdit
-            ? site_url('customers/' . $customer['id'] . '/edit')
-            : site_url('customers');
-    ?>
+<p>
+    <a href="<?=('customers/new') ?> class="btn btn-success">
+        Add Customer
+    </a>
+</p>
 
-    <form method="post" action="<?= esc($action, 'attr') ?>">
+<?php if (! empty($customers)): ?>
 
-        <?= csrf_field() ?>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-        <div>
-            <label for="full_name">Full Name</label><br>
+    <tbody>
+        <?php foreach ($customers as $customer): ?>
+        <tr>
+            <td><?= esc($customer['id']) ?></td>
+            <td><?= esc($customer['full_name']) ?></td>
+            <td><?= esc($customer['email']) ?></td>
+            <td><?= esc($customer['phone']) ?></td>
+            <td><?= esc($customer['created_at']) ?></td>
 
-            <input
-                type="text"
-                id="full_name"
-                name="full_name"
-                value="<?= esc(old('full_name', $customer['full_name'] ?? ''), 'attr') ?>"
-            >
+            <td class="actions">
 
-            <?= validation_show_error('full_name') ?>
-        </div>
+                <a
+                    href="<?= site_url('customers/'.$customer['id  Edit
+                </a>
 
-        <br>
+                <form
+                    method="post"
+                    action="<?= site_url('customers/'.$customer['id'].'/delete') ?>">
 
-        <div>
-            <label for="email">Email</label><br>
+           Delete
+                    </button>
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="<?= esc(old('email', $customer['email'] ?? ''), 'attr') ?>"
-            >
+                </form>
 
-            <?= validation_show_error('email') ?>
-        </div>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-        <br>
+<?php else: ?>
 
-        <div>
-            <label for="phone">Phone</label><br>
+<p>No customers found.</p>
 
-            <input
-                type="text"
-                id="phone"
-                name="phone"
-                value="<?= esc(old('phone', $customer['phone'] ?? ''), 'attr') ?>"
-            >
+<?php endif; ?>
 
-            <?= validation_show_error('phone') ?>
-        </div>
-
-        <br>
-
-        <button type="submit">
-            <?= $isEdit ? 'Update Customer' : 'Add Customer' ?>
-        </button>
-
-        <a href="<?= site_url('customers') ?>">Cancel</a>
-
-    </form>
-
-</body>
-</html>
+<?= view('partials/footer') ?>
