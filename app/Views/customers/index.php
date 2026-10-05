@@ -15,59 +15,57 @@
 <?php endif; ?>
 
 <p>
-    <a href="<?=('customers/new') ?> class="btn btn-success">
+    <a href="<?= site_url('customers/new') ?>" class="btn btn-success">
         Add Customer
     </a>
 </p>
 
 <?php if (! empty($customers)): ?>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Created At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+        <tbody>
+            <?php foreach ($customers as $customer): ?>
+                <tr>
+                    <td><?= esc($customer['id']) ?></td>
+                    <td><?= esc($customer['full_name']) ?></td>
+                    <td><?= esc($customer['email']) ?></td>
+                    <td><?= esc($customer['phone']) ?></td>
+                    <td><?= esc($customer['created_at']) ?></td>
 
-    <tbody>
-        <?php foreach ($customers as $customer): ?>
-        <tr>
-            <td><?= esc($customer['id']) ?></td>
-            <td><?= esc($customer['full_name']) ?></td>
-            <td><?= esc($customer['email']) ?></td>
-            <td><?= esc($customer['phone']) ?></td>
-            <td><?= esc($customer['created_at']) ?></td>
+                    <td class="actions">
+                        <a
+                            href="<?= site_url('customers/' . $customer['id'] . '/edit') ?>"
+                            class="btn btn-primary"
+                        >
+                            Edit
+                        </a>
 
-            <td class="actions">
-
-                <a
-                    href="<?= site_url('customers/'.$customer['id  Edit
-                </a>
-
-                <form
-                    method="post"
-                    action="<?= site_url('customers/'.$customer['id'].'/delete') ?>">
-
-           Delete
-                    </button>
-
-                </form>
-
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
+                        <form
+                            method="post"
+                            action="<?= site_url('customers/' . $customer['id'] . '/delete') ?>"
+                        >
+                            <?= csrf_field() ?>
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php else: ?>
-
-<p>No customers found.</p>
-
+    <p>No customers found.</p>
 <?php endif; ?>
 
 <?= view('partials/footer') ?>
