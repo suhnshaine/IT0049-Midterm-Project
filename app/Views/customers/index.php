@@ -1,89 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?= view('partials/header', ['title' => 'Customer List']) ?>
 
-    <title>Customer List</title>
-</head>
+<h1>Customer List</h1>
 
-<body>
+<?php if (session()->getFlashdata('message')): ?>
+    <div class="success-message">
+        <?= esc(session()->getFlashdata('message')) ?>
+    </div>
+<?php endif; ?>
 
-    <h1>Customer List</h1>
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="error-message">
+        <?= esc(session()->getFlashdata('error')) ?>
+    </div>
+<?php endif; ?>
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <p><?= esc(session()->getFlashdata('message')) ?></p>
-    <?php endif; ?>
+<p>
+    <a href="<?=('customers/new') ?> class="btn btn-success">
+        Add Customer
+    </a>
+</p>
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <p><?= esc(session()->getFlashdata('error')) ?></p>
-    <?php endif; ?>
+<?php if (! empty($customers)): ?>
 
-    <p>
-        <a href="<?= site_url('customers/new') ?>">Add Customer</a>
-    </p>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-    <?php if (! empty($customers)): ?>
+    <tbody>
+        <?php foreach ($customers as $customer): ?>
+        <tr>
+            <td><?= esc($customer['id']) ?></td>
+            <td><?= esc($customer['full_name']) ?></td>
+            <td><?= esc($customer['email']) ?></td>
+            <td><?= esc($customer['phone']) ?></td>
+            <td><?= esc($customer['created_at']) ?></td>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            <td class="actions">
 
-            <tbody>
+                <a
+                    href="<?= site_url('customers/'.$customer['id  Edit
+                </a>
 
-                <?php foreach ($customers as $customer): ?>
+                <form
+                    method="post"
+                    action="<?= site_url('customers/'.$customer['id'].'/delete') ?>">
 
-                    <tr>
-                        <td><?= esc($customer['id']) ?></td>
+           Delete
+                    </button>
 
-                        <td><?= esc($customer['full_name']) ?></td>
+                </form>
 
-                        <td><?= esc($customer['email']) ?></td>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-                        <td>
-                            <?= ! empty($customer['phone'])
-                                ? esc($customer['phone'])
-                                : 'Not provided' ?>
-                        </td>
+<?php else: ?>
 
-                        <td><?= esc($customer['created_at']) ?></td>
+<p>No customers found.</p>
 
-                        <td>
-                            <a href="<?= site_url('customers/' . $customer['id'] . '/edit') ?>">
-                                Edit
-                            </a>
+<?php endif; ?>
 
-                            <form
-                                method="post"
-                                action="<?= site_url('customers/' . $customer['id'] . '/delete') ?>"
-                            >
-                                <?= csrf_field() ?>
-
-                                <button type="submit">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
-
-    <?php else: ?>
-
-        <p>No customers found.</p>
-
-    <?php endif; ?>
-
-</body>
-</html>
+<?= view('partials/footer') ?>
