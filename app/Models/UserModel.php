@@ -8,4 +8,20 @@ class UserModel extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
+
+    protected $allowedFields = [
+        'username',
+        'full_name',
+        'password',
+        'avatar',
+        'role'
+    ];
+
+    protected $returnType = 'array';
+
+    public function getUserByUsername($username)
+    {
+        return $this->where('username', $username)
+                    ->first();
+    }
 }
