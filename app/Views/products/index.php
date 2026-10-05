@@ -1,98 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?= view('partials/header', ['title' => 'Product List']) ?>
 
-    <title>Product List</title>
-</head>
+<h1>Product List</h1>
 
-<body>
+ ?>" class="btn btn-success">
+    Add Product
+</a>
 
-    <h1>Product List</h1>
+<br><br>
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <p><?= esc(session()->getFlashdata('message')) ?></p>
-    <?php endif; ?>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Image</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <p><?= esc(session()->getFlashdata('error')) ?></p>
-    <?php endif; ?>
+    <tbody>
 
-    <p>
-        <a href="<?= site_url('products/new') ?>">Add Product</a>
-    </p>
+    <?php foreach ($products as $product): ?>
 
-    <?php if (! empty($products)): ?>
+        <tr>
+            <td><?= esc($product['id']) ?></td>
+            <td><?= esc($product['name']) ?></td>
+            <td><?= number_format($product['price'],2) ?></td>
+            <td><?= esc($product['stock_quantity']) ?></td>
+            <td><?= esc($product['image'] ?: 'No image') ?></td>
+            <td><?= esc($product['created_at']) ?></td>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Image Filename</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            <td class="actions">
 
-            <tbody>
+                <a
+                    href="<?= site_url('products/'.$product['id    Edit
+                </a>
 
-                <?php foreach ($products as $product): ?>
+                <form
+                    method="post"
+                    action="<?= site_url('products/'.$product['id'].'/delete') ?>">
 
-                    <tr>
-                        <td><?= esc($product['id']) ?></td>
+                    <?= csrf_field() ?>
 
-                        <td><?= esc($product['name']) ?></td>
+                    <     </form>
 
-                        <td>
-                            <?= number_format((float) $product['price'], 2) ?>
-                        </td>
+            </td>
 
-                        <td>
-                            <?= esc($product['stock_quantity']) ?>
-                        </td>
+        </tr>
 
-                        <td>
-                            <?= ! empty($product['image'])
-                                ? esc($product['image'])
-                                : 'No image' ?>
-                        </td>
+    <?php endforeach; ?>
 
-                        <td>
-                            <?= esc($product['created_at']) ?>
-                        </td>
+    </tbody>
+</table>
 
-                        <td>
-                            <a href="<?= site_url('products/' . $product['id'] . '/edit') ?>">
-                                Edit
-                            </a>
-
-                            <form
-                                method="post"
-                                action="<?= site_url('products/' . $product['id'] . '/delete') ?>"
-                            >
-                                <?= csrf_field() ?>
-
-                                <button type="submit">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
-
-    <?php else: ?>
-
-        <p>No products found.</p>
-
-    <?php endif; ?>
-
-</body>
-</html>
+<?= view('partials/footer') ?>
