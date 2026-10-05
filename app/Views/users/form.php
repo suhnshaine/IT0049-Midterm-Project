@@ -1,103 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title) ?></title>
-</head>
+<?= view('partials/header', ['title' => $title]) ?>
 
-<body>
+<?php
+$isEdit = ! empty($user);
+
+$action = $isEdit
+    ? site_url('users/'.$user['id'].'/edit')
+    : site_url('users');
+?>
+
+<div class="form-card">
 
     <h1><?= esc($title) ?></h1>
 
-    <?php
-        $isEdit = ! empty($user);
-
-        $action = $isEdit
-            ? site_url('users/' . $user['id'] . '/edit')
-            : site_url('users');
-    ?>
-
-    <form method="post"
-          action="<?= esc($action, 'attr') ?>"
-          enctype="multipart/form-data">
+     ?>"
+        enctype="multipart/form-data">
 
         <?= csrf_field() ?>
 
-        <div>
-            <label for="username">Username</label><br>
-
-            <input
-                type="text"
-                id="username"
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text"
                 name="username"
-                value="<?= esc(old('username', $user['username'] ?? ''), 'attr') ?>"
-            >
-
-            <?= validation_show_error('username') ?>
+                value="<?= old('username',$user['username'] ?? '') ?>">
         </div>
 
-        <br>
-
-        <div>
-            <label for="full_name">Full Name</label><br>
-
-            <input
-                type="text"
-                id="full_name"
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text"
                 name="full_name"
-                value="<?= esc(old('full_name', $user['full_name'] ?? ''), 'attr') ?>"
-            >
-
-            <?= validation_show_error('full_name') ?>
+                value="<?= old('full_name',$user['full_name'] ?? '') ?>">
         </div>
 
-        <br>
-
-        <div>
-            <label for="password">Password</label><br>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-            >
-
-            <?= validation_show_error('password') ?>
-
-            <?php if ($isEdit): ?>
-                <p>Leave blank to keep the current password.</p>
-            <?php endif; ?>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password">
         </div>
 
-        <br>
-
-        <div>
-            <label for="avatar">Avatar</label><br>
-
-            <input
-                type="file"
-                id="avatar"
-                name="avatar"
-                accept="image/jpeg,image/png,image/webp"
-            >
-
-            <?= validation_show_error('avatar') ?>
+        <div class="form-group">
+            <label>Avatar</label>
+            <input type="file" name="avatar">
         </div>
 
-        <br>
-
-        <?php if ($isEdit && ! empty($user['avatar'])): ?>
-            <p>Current avatar: <?= esc($user['avatar']) ?></p>
-        <?php endif; ?>
-
-        <button type="submit">
+        <button type="submit" class="btn btn-primary">
             <?= $isEdit ? 'Update Staff User' : 'Add Staff User' ?>
         </button>
 
-        <a href="<?= site_url('users') ?>">Cancel</a>
+         ?>" class="btn btn-danger">
+            Cancel
+        </a>
 
     </form>
 
-</body>
-</html>
+</div>
+
+<?= view('partials/footer') ?>
