@@ -1,73 +1,70 @@
-<?= view('partials/header', ['title' => 'Customer List']) ?>
+<?= view('partials/header', ['title' => $title]) ?>
 
-<h1>Customer List</h1>
+<?php
+$isEdit = ! empty($customer);
 
-<?php if (session()->getFlashdata('message')): ?>
-    <div class="success-message">
-        <?= esc(session()->getFlashdata('message')) ?>
-    </div>
-<?php endif; ?>
+$action = $isEdit
+    ? site_url('customers/'.$customer['id'].'/edit')
+    : site_url('customers');
+?>
 
-<?php if (session()->getFlashdata('error')): ?>
-    <div class="error-message">
-        <?= esc(session()->getFlashdata('error')) ?>
-    </div>
-<?php endif; ?>
+<div class="form-card">
 
-<p>
-    <a href="<?=('customers/new') ?> class="btn btn-success">
-        Add Customer
-    </a>
-</p>
+    <h1><?= esc($title) ?></h1>
 
-<?php if (! empty($customers)): ?>
+    <?>">
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Created At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+        <?= csrf_field() ?>
 
-    <tbody>
-        <?php foreach ($customers as $customer): ?>
-        <tr>
-            <td><?= esc($customer['id']) ?></td>
-            <td><?= esc($customer['full_name']) ?></td>
-            <td><?= esc($customer['email']) ?></td>
-            <td><?= esc($customer['phone']) ?></td>
-            <td><?= esc($customer['created_at']) ?></td>
+        <div class="form-group">
+            <label>Full Name</label>
 
-            <td class="actions">
+            <input
+                type="text"
+                name="full_name"
+                value="<?= old('full_name', $customer['full_name'] ?? '') ?>">
 
-                <a
-                    href="<?= site_url('customers/'.$customer['id  Edit
-                </a>
+            <span class="text-danger">
+                <?= validation_show_error('full_name') ?>
+            </span>
+        </div>
 
-                <form
-                    method="post"
-                    action="<?= site_url('customers/'.$customer['id'].'/delete') ?>">
+        <div class="form-group">
+            <label>Email</label>
 
-           Delete
-                    </button>
+            <input
+                type="email"
+                name="email"
+                value="<?= old('email', $customer['email'] ?? '') ?>">
 
-                </form>
+            <span class="text-danger">
+                <?= validation_show_error('email') ?>
+            </span>
+        </div>
 
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        <div class="form-group">
+            <label>Phone</label>
 
-<?php else: ?>
+            <input
+                type="text"
+                name="phone"
+                value="<?= old('phone', $customer['phone'] ?? '') ?>">
 
-<p>No customers found.</p>
+            <span class="text-danger">
+                <?= validation_show_error('phone') ?>
+            </span>
+        </div>
 
-<?php endif; ?>
+        <button type="submit" class="btn btn-primary">
+            <?= $isEdit ? 'Update Customer' : 'Add Customer' ?>
+        </button>
+
+         ?>" class="btn btn-danger">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
 
 <?= view('partials/footer') ?>
